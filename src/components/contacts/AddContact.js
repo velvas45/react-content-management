@@ -5,7 +5,8 @@
 import React, { useState } from "react";
 import { Consumer } from "../../context";
 import TextInputAddContact from "../layout/TextInputAddContact";
-import axios from "axios";
+import { v4 as uuid } from "uuid";
+// import axios from "axios";
 
 function AddContact(props) {
   // state = {
@@ -23,17 +24,32 @@ function AddContact(props) {
   const onChangeEmail = (e) => setEmail(e.target.value);
   const onChangePhone = (e) => setPhone(e.target.value);
 
-  const onSubmit = async (dispatch, e) => {
+  // const onSubmit = async (dispatch, e) => {
+  //   e.preventDefault();
+
+  //   const newContact = { name, email, phone };
+
+  //   const res = await axios.post(
+  //     "http://jsonplaceholder.typicode.com/users",
+  //     newContact
+  //   );
+
+  //   dispatch({ type: "ADD_CONTACT", payload: res.data });
+
+  //   //   membersihkan form sehabis submit
+  //   setName("");
+  //   setEmail("");
+  //   setPhone("");
+
+  //   props.history.push("/");
+  // };
+
+  const onSubmit = (dispatch, e) => {
     e.preventDefault();
 
-    const newContact = { name, email, phone };
+    const newContact = { id: uuid(), name, email, phone };
 
-    const res = await axios.post(
-      "http://jsonplaceholder.typicode.com/users",
-      newContact
-    );
-
-    dispatch({ type: "ADD_CONTACT", payload: res.data });
+    dispatch({ type: "ADD_CONTACT", payload: newContact });
 
     //   membersihkan form sehabis submit
     setName("");
